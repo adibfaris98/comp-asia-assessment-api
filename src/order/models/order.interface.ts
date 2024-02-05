@@ -3,5 +3,4 @@ export interface OrderPost {
   createdAt?: Date;
   userId: number;
   productId: number;
-  // body?: string;
 }

@@ -1,6 +1,6 @@
 // src/entities/user.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { OrderEntity } from '../../order/models/order.entity';
+import { Order } from './order.entity';
 
 @Entity()
 export class User {
@@ -10,8 +10,14 @@ export class User {
   @Column()
   username: string;
 
-  @OneToMany(() => OrderEntity, (order) => order.user)
-  orders: OrderEntity[];
+  @Column()
+  password: string;
+
+  @Column()
+  role: string;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   // Other user-related properties and methods can be added as needed
 }

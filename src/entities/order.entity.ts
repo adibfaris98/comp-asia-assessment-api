@@ -1,10 +1,11 @@
 // src/entities/order.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from '../../user/models/user.entity';
-import { Product } from '../../product/models/product.entity';
+import { User } from './user.entity';
+import { Product } from './product.entity';
+import { Color } from './color.entity';
 
 @Entity()
-export class OrderEntity {
+export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,6 +14,9 @@ export class OrderEntity {
 
   @Column()
   productId: number;
+
+  @Column()
+  colorId: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
@@ -23,5 +27,6 @@ export class OrderEntity {
   @ManyToOne(() => Product)
   product: Product;
 
-  // Other order-related properties and methods can be added as needed
+  @ManyToOne(() => Color, (color) => color.color)
+  color: Color;
 }

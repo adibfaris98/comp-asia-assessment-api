@@ -7,7 +7,9 @@ import { OrderModule } from './order/order.module';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { join } from 'path';
-
+// import { BrandModule } from './brand/brand.module';
+// import { CategoryModule } from './category/category.module';
+// import { SeederService } from './seeder.service';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -18,13 +20,14 @@ import { join } from 'path';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: true,
     }),
     OrderModule,
     UserModule,
     ProductModule,
+    // BrandModule,
+    // CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

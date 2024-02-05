@@ -1,7 +1,15 @@
-import { Body, Controller, Post, Get, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { OrderService } from '../services/order.service';
 import { CreateOrderDto } from '../dto/create-order.dto';
-import { OrderEntity } from '../models/order.entity';
+import { Order } from '../../entities/order.entity';
 
 @Controller('orders')
 export class OrderController {
@@ -14,9 +22,9 @@ export class OrderController {
 
   @Get()
   async getAllOrders(
-    @Query('page') page = 1,
-    @Query('perPage') perPage = 10,
-  ): Promise<{ orders: OrderEntity[]; page: number; perPage: number }> {
-    return this.orderService.getAllOrders(page, perPage);
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('pageSize', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+  ): Promise<{ orders: Order[]; page: number; pageSize: number }> {
+    return this.orderService.getAllOrders(page, pageSize);
   }
 }
